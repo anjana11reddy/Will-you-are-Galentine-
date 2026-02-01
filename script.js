@@ -274,16 +274,14 @@ if (surpriseVideo) {
 }
 
 // EXIT button dodges like NO
-btnExit.addEventListener("mouseenter", () => placeButtonRandom(arenaYay, btnExit));
-arenaYay.addEventListener("mousemove", (e) => moveIfNear(arenaYay, btnExit, e, 90));
-btnExit.addEventListener(
-  "touchstart",
-  (e) => {
-    e.preventDefault();
-    placeButtonRandom(arenaYay, btnExit);
-  },
-  { passive: false }
-);
+const exitArena = document.getElementById("exitArena");
+
+btnExit.addEventListener("mouseenter", () => placeButtonRandom(exitArena, btnExit));
+exitArena.addEventListener("mousemove", (e) => moveIfNear(exitArena, btnExit, e, 60));
+btnExit.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  placeButtonRandom(exitArena, btnExit);
+}, {passive:false});
 
 // NEXT from celebration to mail
 btnNext.addEventListener("click", () => showScreen("mail"));

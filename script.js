@@ -17,9 +17,14 @@ const CONFIG = {
   ].join("\n\n"),
 };
 
+// ------------------ PARTY SOUNDS ------------------
+let partyLock = false;
 
-function playPartySounds(){
-  try{
+function playPartySounds() {
+  if (partyLock) return;
+  partyLock = true;
+
+  try {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     const ctx = new AudioCtx();
     const now = ctx.currentTime;
@@ -33,35 +38,49 @@ function playPartySounds(){
       g.gain.setValueAtTime(0.0001, t);
       g.gain.exponentialRampToValueAtTime(0.25, t + 0.01);
       g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      o.connect(g); g.connect(ctx.destination);
-      o.start(t); o.stop(t + dur);
+      o.connect(g);
+      g.connect(ctx.destination);
+      o.start(t);
+      o.stop(t + dur);
     };
 
     // a few quick pops
     pop(now + 0.02, 520, 120, 0.09);
     pop(now + 0.16, 640, 140, 0.09);
-    pop(now + 0.30, 760, 160, 0.10);
+    pop(now + 0.3, 760, 160, 0.1);
 
     // little "crackle" noise
-    const bufferSize = ctx.sampleRate * 0.25;
+    const bufferSize = Math.floor(ctx.sampleRate * 0.25);
     const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = noiseBuffer.getChannelData(0);
-    for(let i=0;i<bufferSize;i++){
-      data[i] = (Math.random()*2-1) * (1 - i/bufferSize);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
     }
+
     const noise = ctx.createBufferSource();
     noise.buffer = noiseBuffer;
+
     const ng = ctx.createGain();
     ng.gain.setValueAtTime(0.0001, now);
     ng.gain.exponentialRampToValueAtTime(0.18, now + 0.02);
     ng.gain.exponentialRampToValueAtTime(0.0001, now + 0.25);
-    noise.connect(ng); ng.connect(ctx.destination);
+
+    noise.connect(ng);
+    ng.connect(ctx.destination);
     noise.start(now + 0.05);
 
     // close context after a second
-    setTimeout(()=>{ try{ ctx.close(); }catch(e){} }, 1200);
-  }catch(e){
+    setTimeout(() => {
+      try {
+        ctx.close();
+      } catch (e) {}
+    }, 1200);
+  } catch (e) {
     // ignore if blocked
+  } finally {
+    setTimeout(() => {
+      partyLock = false;
+    }, 800);
   }
 }
 
@@ -76,8 +95,8 @@ const screens = {
   sealed: document.getElementById("screenSealed"),
 };
 
-function showScreen(key){
-  Object.values(screens).forEach(s => s.classList.remove("screen--active"));
+function showScreen(key) {
+  Object.values(screens).forEach((s) => s.classList.remove("screen--active"));
   screens[key].classList.add("screen--active");
 }
 
@@ -105,7 +124,7 @@ askTitle.textContent = `${CONFIG.name} will you be my Galentine?`;
 const confettiCanvas = document.getElementById("confettiCanvas");
 const ctx = confettiCanvas.getContext("2d");
 
-function resizeCanvas(){
+function resizeCanvas() {
   confettiCanvas.width = window.innerWidth * devicePixelRatio;
   confettiCanvas.height = window.innerHeight * devicePixelRatio;
   confettiCanvas.style.width = window.innerWidth + "px";
@@ -118,11 +137,11 @@ resizeCanvas();
 let confettiPieces = [];
 let confettiRunning = false;
 
-function startConfetti(durationMs = 2200){
+function startConfetti(durationMs = 2200) {
   confettiPieces = [];
   const count = 180;
 
-  for(let i=0;i<count;i++){
+  for (let i = 0; i < count; i++) {
     confettiPieces.push({
       x: Math.random() * window.innerWidth,
       y: -20 - Math.random() * window.innerHeight * 0.3,
@@ -138,12 +157,12 @@ function startConfetti(durationMs = 2200){
   confettiRunning = true;
   const start = performance.now();
 
-  function frame(t){
-    if(!confettiRunning) return;
+  function frame(t) {
+    if (!confettiRunning) return;
 
-    ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-    for(const p of confettiPieces){
+    for (const p of confettiPieces) {
       p.x += p.vx;
       p.y += p.vy;
       p.a += p.va;
@@ -153,17 +172,17 @@ function startConfetti(durationMs = 2200){
       ctx.translate(p.x, p.y);
       ctx.rotate(p.a);
       ctx.fillStyle = p.c;
-      ctx.fillRect(-p.r, -p.r, p.r*2, p.r*2);
+      ctx.fillRect(-p.r, -p.r, p.r * 2, p.r * 2);
       ctx.restore();
     }
 
-    confettiPieces = confettiPieces.filter(p => p.y < window.innerHeight + 40);
+    confettiPieces = confettiPieces.filter((p) => p.y < window.innerHeight + 40);
 
-    if(t - start < durationMs){
+    if (t - start < durationMs) {
       requestAnimationFrame(frame);
     } else {
       confettiRunning = false;
-      ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     }
   }
 
@@ -171,9 +190,11 @@ function startConfetti(durationMs = 2200){
 }
 
 // Dodge logic
-function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
 
-function placeButtonRandom(arenaEl, btnEl){
+function placeButtonRandom(arenaEl, btnEl) {
   const arenaRect = arenaEl.getBoundingClientRect();
   const btnRect = btnEl.getBoundingClientRect();
   const pad = 10;
@@ -192,7 +213,7 @@ function placeButtonRandom(arenaEl, btnEl){
   btnEl.style.transform = "translate(0,0)";
 }
 
-function moveIfNear(arenaEl, btnEl, mouseEvent, threshold = 80){
+function moveIfNear(arenaEl, btnEl, mouseEvent, threshold = 80) {
   const btnRect = btnEl.getBoundingClientRect();
 
   const mx = mouseEvent.clientX;
@@ -203,9 +224,9 @@ function moveIfNear(arenaEl, btnEl, mouseEvent, threshold = 80){
 
   const dx = mx - bx;
   const dy = my - by;
-  const dist = Math.sqrt(dx*dx + dy*dy);
+  const dist = Math.sqrt(dx * dx + dy * dy);
 
-  if(dist < threshold){
+  if (dist < threshold) {
     placeButtonRandom(arenaEl, btnEl);
   }
 }
@@ -213,26 +234,57 @@ function moveIfNear(arenaEl, btnEl, mouseEvent, threshold = 80){
 // NO button moves on hover and proximity
 btnNo.addEventListener("mouseenter", () => placeButtonRandom(arenaAsk, btnNo));
 arenaAsk.addEventListener("mousemove", (e) => moveIfNear(arenaAsk, btnNo, e, 90));
-btnNo.addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  placeButtonRandom(arenaAsk, btnNo);
-}, {passive:false});
+btnNo.addEventListener(
+  "touchstart",
+  (e) => {
+    e.preventDefault();
+    placeButtonRandom(arenaAsk, btnNo);
+  },
+  { passive: false }
+);
 
-// YES click (Yes stays visible, just disables itself)
+// YES click (go to Screen 2, play video + confetti + cracker sounds)
 btnYes.addEventListener("click", () => {
   btnYes.disabled = true;
   btnYes.style.opacity = "0.92";
+
   showScreen("yay");
+
+  // Party effects
   startConfetti(2600);
+  playPartySounds();
+
+  // Ensure the surprised.mp4 plays
+  const v = document.getElementById("surpriseVideo");
+  if (v) {
+    v.muted = true;
+    v.playsInline = true;
+    v.play().catch(() => {});
+  }
 });
+
+// Reinforce effects once video is ready (more reliable on slow loads)
+const surpriseVideo = document.getElementById("surpriseVideo");
+if (surpriseVideo) {
+  surpriseVideo.addEventListener("canplay", () => {
+    if (screens.yay.classList.contains("screen--active")) {
+      startConfetti(2200);
+      playPartySounds();
+    }
+  });
+}
 
 // EXIT button dodges like NO
 btnExit.addEventListener("mouseenter", () => placeButtonRandom(arenaYay, btnExit));
 arenaYay.addEventListener("mousemove", (e) => moveIfNear(arenaYay, btnExit, e, 90));
-btnExit.addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  placeButtonRandom(arenaYay, btnExit);
-}, {passive:false});
+btnExit.addEventListener(
+  "touchstart",
+  (e) => {
+    e.preventDefault();
+    placeButtonRandom(arenaYay, btnExit);
+  },
+  { passive: false }
+);
 
 // NEXT from celebration to mail
 btnNext.addEventListener("click", () => showScreen("mail"));
@@ -265,14 +317,17 @@ const cards = [
       <p><strong>${CONFIG.name}</strong>, happy Galentine’s day 💗</p>
       <p>Bestie status: permanent.</p>
       <p>Today we celebrate you, me, and our unstoppable chaos.</p>
-    `
+    `,
   },
   {
     header: "Card 2",
     title: "Dear weirdo",
     footer: "my favorite human",
     showDoodles: false,
-    html: CONFIG.letterText.split("\n\n").map(p => `<p>${escapeHtml(p)}</p>`).join("")
+    html: CONFIG.letterText
+      .split("\n\n")
+      .map((p) => `<p>${escapeHtml(p)}</p>`)
+      .join(""),
   },
   {
     header: "Card 3",
@@ -281,8 +336,8 @@ const cards = [
     showDoodles: false,
     html: `
       <p>Sending you dramatic kisses and emotional hugs 🤗💋💋</p>
-      <p>      <p>💋💋💋</p>
-    `
+      <p class="center">🤗🤗 🤍 💋💋💋</p>
+    `,
   },
   {
     header: "Card 4",
@@ -319,7 +374,7 @@ const cards = [
           <div class="ticketText">movie night</div>
         </div>
       </div>
-    `
+    `,
   },
   {
     header: "Card 5",
@@ -350,8 +405,7 @@ const cards = [
           <img class="qr" src="${CONFIG.qrPath}" alt="QR code" onerror="this.style.display='none';" />
         </div>
       </div>
-    `
-
+    `,
   },
   {
     header: "Card 6",
@@ -365,7 +419,7 @@ const cards = [
         <source src="./assets/panda.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-    `
+    `,
   },
   {
     header: "Card 7",
@@ -380,7 +434,7 @@ const cards = [
         <img class="qr" style="width:160px" src="./assets/cake.png" alt="" onerror="this.style.display='none';" />
       </div>
       <p class="center">💗</p>
-    `
+    `,
   },
   {
     header: "Final",
@@ -391,13 +445,13 @@ const cards = [
       <p>Okay, no more tears. Close the envelope and act cool.</p>
       <p class="center">💌💮</p>
       <p class="tiny center">Press the button below to seal it.</p>
-    `
+    `,
   },
 ];
 
 let cardIndex = 0;
 
-function escapeHtml(str){
+function escapeHtml(str) {
   return str
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -406,7 +460,7 @@ function escapeHtml(str){
     .replaceAll("'", "&#039;");
 }
 
-function renderCard(){
+function renderCard() {
   const c = cards[cardIndex];
   cardHeaderTitle.textContent = c.header;
   cardTitle.textContent = c.title;
@@ -419,11 +473,11 @@ function renderCard(){
   const rightImg = document.getElementById("doodleRight");
   const bodyEl = document.querySelector(".postcardBody");
 
-  if(c.showDoodles){
+  if (c.showDoodles) {
     doodlesEl.classList.remove("hidden");
     bodyEl.classList.add("hasDoodles");
-    if(c.doodleLeft) leftImg.src = c.doodleLeft;
-    if(c.doodleRight) rightImg.src = c.doodleRight;
+    if (c.doodleLeft) leftImg.src = c.doodleLeft;
+    if (c.doodleRight) rightImg.src = c.doodleRight;
   } else {
     doodlesEl.classList.add("hidden");
     bodyEl.classList.remove("hasDoodles");
@@ -432,7 +486,7 @@ function renderCard(){
   // Song: show record label only when play starts
   const player = document.getElementById("songPlayer");
   const disc = document.getElementById("recordDisc");
-  if(player && disc){
+  if (player && disc) {
     const showPlaying = () => {
       disc.classList.remove("recordHidden");
       disc.classList.add("spin");
@@ -440,9 +494,9 @@ function renderCard(){
     const stopPlaying = () => {
       disc.classList.remove("spin");
     };
-    player.addEventListener("play", showPlaying, { once:false });
-    player.addEventListener("pause", stopPlaying, { once:false });
-    player.addEventListener("ended", stopPlaying, { once:false });
+    player.addEventListener("play", showPlaying, { once: false });
+    player.addEventListener("pause", stopPlaying, { once: false });
+    player.addEventListener("ended", stopPlaying, { once: false });
   }
 }
 
@@ -471,7 +525,7 @@ btnRestart.addEventListener("click", () => {
 });
 
 // Initial positions
-function resetPositions(){
+function resetPositions() {
   btnNo.style.left = "62%";
   btnNo.style.top = "50%";
   btnNo.style.transform = "translate(-50%, -50%)";

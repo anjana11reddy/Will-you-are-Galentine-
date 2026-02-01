@@ -710,3 +710,14 @@ body{
   place-items:center;
   font-size:40px;
 }
+.exitArena{
+  position: relative;
+  width: 140px;          /* movement area width */
+  height: 52px;          /* movement area height */
+}
+
+#btnExit{
+  position: absolute;    /* key: JS can move it now */
+  left: 0;
+  top: 0;
+}

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ruchika 💌</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Patrick+Hand&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+    <main class="app">
+      <!-- Screen 1: Ask -->
+      <section class="screen screen--active" id="screenAsk" aria-live="polite">
+        <div class="card glass">
+          <div class="kittyWrap" aria-hidden="true">
+            <div class="kitty">
+              <span class="ear ear-left"></span>
+              <span class="ear ear-right"></span>
+              <span class="face"></span>
+              <span class="eye eye-left"></span>
+              <span class="eye eye-right"></span>
+              <span class="nose"></span>
+              <span class="heart"></span>
+            </div>
+          </div>
+
+          <h1 class="title" id="askTitle">Ruchika will you be my Galentine?</h1>
+          <p class="subtle" id="askHint">“No” seems a bit shy 😈</p>
+
+          <div class="arena" id="arenaAsk">
+            <button class="btn btn-yes" id="btnYes" type="button">Yes</button>
+            <button class="btn btn-no" id="btnNo" type="button">No</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 2: Celebration -->
+      <section class="screen" id="screenYay">
+        <div class="card glass">
+          <h2 class="title2">
+            Ruchika will you be my Galentine? <span class="pop">YAY!!</span> 🎉
+          </h2>
+
+          <div class="celebrateRow">
+            <div class="surpriseBox">
+              <div class="surpriseLabel">Surprised mode:</div>
+              <!-- Put your gif at assets/surprised.gif -->
+              <div class="surpriseFallback" style="display:none;">😲😲😲</div>
+              <img
+                class="surpriseGif"
+                src="./assets/surprised.gif"
+                alt="Surprised gif"
+                onerror="this.style.display='none'; this.previousElementSibling.style.display='block';"
+              />
+            </div>
+
+            <div class="crackerBox" aria-hidden="true">
+              <div class="cracker c1"></div>
+              <div class="cracker c2"></div>
+              <div class="cracker c3"></div>
+              <div class="cracker c4"></div>
+              <div class="cracker c5"></div>
+              <div class="cracker c6"></div>
+            </div>
+          </div>
+
+          <p class="subtle center">
+            
+          </p>
+
+          <div class="arena" id="arenaYay">
+            <button class="btn btn-dark" id="btnNext" type="button">Next</button>
+            <button class="btn btn-exit" id="btnExit" type="button">Exit</button>
+          </div>
+
+          <p class="tiny center">Try clicking Exit 😈</p>
+        </div>
+      </section>
+
+      <!-- Screen 3: Envelope -->
+      <section class="screen" id="screenMail">
+        <div class="card glass">
+          <h2 class="title2">You’ve got mail 💌</h2>
+          <p class="subtle center">Tap the envelope to open it</p>
+
+          <button class="envelope" id="btnEnvelope" type="button" aria-label="Open envelope">
+            <div class="envTop"></div>
+            <div class="envBody"></div>
+            <div class="waxSeal">made<br/>with<br/>❤</div>
+          </button>
+
+          <div class="navRow">
+            <button class="btn btn-dark" id="btnBackToYay" type="button">Back</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Postcard book -->
+      <section class="screen" id="screenCards">
+        <div class="bookWrap">
+          <div class="bookHeader">
+            <div class="bookTitle" id="cardHeaderTitle">Card</div>
+            <div class="bookControls">
+              <button class="btn btn-dark small" id="btnPrevCard" type="button">Prev</button>
+              <button class="btn btn-dark small" id="btnNextCard" type="button">Next</button>
+            </div>
+          </div>
+
+          <article class="postcard" id="postcard">
+            <div class="postcardTop">
+              <div class="date" id="cardDate">14.02.2026</div>
+              <div class="sealBadge" aria-hidden="true"></div>
+            </div>
+
+            <div class="postcardBody">
+              <h3 class="handTitle" id="cardTitle">Happy Galentine’s Babe</h3>
+
+              <div class="cardContent" id="cardContent">
+                <!-- JS fills this -->
+              </div>
+
+              <div class="doodles" id="doodles" aria-hidden="true">
+                <img class="doodle left" id="doodleLeft" src="./assets/cake.png" alt="" />
+                <img class="doodle right" id="doodleRight" src="./assets/flowers.png" alt="" />
+              </div>
+            </div>
+
+            <div class="postcardFooter">
+              <span class="footerLine" id="cardFooterLine">to my forever galentine</span>
+            </div>
+          </article>
+
+          <div class="bookBottom">
+            <button class="btn btn-dark" id="btnCloseAndSeal" type="button">Close & Seal</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 5: Sealed -->
+      <section class="screen" id="screenSealed">
+        <div class="card glass">
+          <h2 class="title2">Sealed and delivered 💮</h2>
+          <p class="subtle center">See you soon, Ruchika 💗</p>
+
+          <div class="sealedArt" aria-hidden="true">
+            <div class="sealedEnv">
+              <div class="waxSeal big">❤</div>
+            </div>
+          </div>
+
+          <div class="navRow">
+            <button class="btn btn-dark" id="btnRestart" type="button">Restart</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

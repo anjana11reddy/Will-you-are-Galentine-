@@ -10,7 +10,6 @@ const CONFIG = {
 
   // Message text for the long letter page
   letterText: [
-    "Dear weirdo,",
     "On this silly little day, I made this because I want you to know how much you mean to me.",
     "Thank you for being my person, my calm, and my chaos. Even after all the silly fights, I still choose you as my best friend every single time.",
     "Here’s to more late-night talks, random laughs, and making new memories. I love you, always. 💗"

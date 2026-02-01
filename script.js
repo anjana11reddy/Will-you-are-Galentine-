@@ -435,80 +435,29 @@ function resetPositions(){
 renderCard();
 resetPositions();
 /* YAY screen layout */
-.yayWrap {
-  min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 36px 18px;
-}
+function startSurpriseVideoAndEffects() {
+  const v = document.getElementById("surpriseVideo");
+  const fallback = document.getElementById("surpriseFallback");
 
-.yayCard {
-  width: min(980px, 92vw);
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 192, 210, 0.45);
-  border-radius: 22px;
-  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.08);
-  padding: 34px 22px 26px;
-  text-align: center;
-}
+  if (!v) return;
 
-.yayCat img {
-  width: 74px;
-  height: 74px;
-  object-fit: contain;
-  margin: 0 auto 12px;
-  display: block;
-}
+  // Ensure correct src in case something overwrote it
+  if (!v.getAttribute("src")) v.setAttribute("src", "assets/surprised.mp4");
 
-.yayTitle {
-  margin: 0 0 18px;
-  font-size: clamp(28px, 4vw, 44px);
-  line-height: 1.1;
-}
+  // Try to play. Autoplay works only if muted on most browsers.
+  v.muted = true;
+  v.playsInline = true;
 
-.yayBadge {
-  display: inline-block;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: rgba(255, 200, 220, 0.5);
-  border: 1px solid rgba(255, 170, 190, 0.55);
-  margin-left: 8px;
-}
+  const p = v.play();
+  if (p && typeof p.catch === "function") {
+    p.catch(() => {
+      // if autoplay blocked, show fallback emojis
+      if (fallback) fallback.hidden = false;
+    });
+  }
 
-.yayVideoBox {
-  width: min(460px, 82vw);
-  margin: 18px auto 22px;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
-  background: #000;
-}
-
-.yayVideo {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.yayFallback {
-  padding: 18px 14px;
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
-}
-
-.fallbackLabel {
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.fallbackEmojis {
-  font-size: 44px;
-}
-
-.yayButtons {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  margin-top: 12px;
+  // Call your existing effects (use your function names)
+  // Replace these with whatever you already have:
+  if (typeof launchConfetti === "function") launchConfetti();
+  if (typeof burstCrackers === "function") burstCrackers();
 }

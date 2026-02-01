@@ -314,7 +314,7 @@ const cards = [
       <p class="center"><strong>YIPPEEE!!!!!!</strong></p>
       <p class="center">Because we deserve happiness, snacks, and zero stress.</p>
       <div class="songRow">
-        <img class="qr" style="width:220px" src="./assets/panda.png" alt="Happy panda gif" onerror="this.style.display='none';" />
+        <img class="qr" style="width:220px" src="./assets/panda.gif" alt="Happy panda gif" onerror="this.style.display='none';" />
       </div>
       <p class="center" style="font-size:44px;">🐼✨</p>
     `

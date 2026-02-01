@@ -14,6 +14,7 @@
 }
 
 *{box-sizing:border-box;}
+
 body{
   margin:0;
   min-height:100vh;
@@ -62,7 +63,8 @@ body{
   font-size:clamp(22px, 3.4vw, 36px);
   font-weight:900;
   letter-spacing:-0.02em;
-  text-transform: lowercase;
+  text-transform:none;
+  font-family: "Lilita One", ui-sans-serif, system-ui;
 }
 
 .title2{
@@ -71,6 +73,8 @@ body{
   font-size:clamp(20px, 2.8vw, 30px);
   font-weight:900;
   letter-spacing:-0.02em;
+  text-transform:none;
+  font-family: "Lilita One", ui-sans-serif, system-ui;
 }
 
 .pop{
@@ -124,62 +128,10 @@ body{
 .btn-dark:hover{background:#000;}
 .small{padding:10px 16px; font-size:14px;}
 
-.btn-exit{
-  background:#f1f1f1;
-  color:#222;
-  position:absolute;
-  left:62%;
-  top:50%;
-  transform: translate(-50%, -50%);
-}
-
 .navRow{
   display:flex;
   justify-content:center;
   margin-top:16px;
-}
-
-.celebrateRow{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:14px;
-  align-items:center;
-  margin-top:12px;
-}
-@media (max-width:720px){
-  .celebrateRow{grid-template-columns:1fr;}
-}
-
-.surpriseBox{
-  background:rgba(255,255,255,0.6);
-  border:1px solid rgba(255,255,255,0.7);
-  border-radius:14px;
-  padding:12px;
-  text-align:center;
-}
-.surpriseLabel{font-weight:800; margin-bottom:8px;}
-.surpriseGif{
-  width:100%;
-  max-width:280px;
-  border-radius:12px;
-  box-shadow:0 10px 22px rgba(0,0,0,0.12);
-}
-.surpriseFallback{
-  font-size:52px;
-  padding:18px 0;
-}
-
-.crackerBox{
-  position:relative;
-  /* Keep the container sized to the video so we don't get a big empty box */
-  width:min(980px, 92vw);
-  aspect-ratio:16 / 9;
-  height:auto;
-  max-height:54vh;
-  border-radius:18px;
-  background:rgba(255,47,119,0.08);
-  border:1px solid rgba(255,47,119,0.18);
-  overflow:hidden;
 }
 
 .actions{
@@ -187,34 +139,20 @@ body{
   justify-content:center;
   align-items:center;
   gap:14px;
-  margin-top:22px;
+  margin-top:18px;
 }
-.cracker{
-  position:absolute;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:0 0 0 3px rgba(255,255,255,0.35);
-  animation: burst 900ms ease-out infinite;
-  opacity:0;
-}
-.c1{left:18%; top:70%;}
-.c2{left:40%; top:55%; animation-delay:120ms;}
-.c3{left:62%; top:78%; animation-delay:220ms;}
-.c4{left:75%; top:45%; animation-delay:320ms;}
-.c5{left:25%; top:35%; animation-delay:420ms;}
-.c6{left:55%; top:28%; animation-delay:520ms;}
 
-@keyframes burst{
-  0%{transform:scale(0.2); opacity:0;}
-  20%{opacity:1;}
-  100%{transform: scale(14); opacity:0;}
+.hint{
+  text-align:center;
+  margin-top:12px;
+  color: var(--muted);
+  font-weight:700;
 }
 
 /* Kitty */
 .kittyWrap{ display:grid; place-items:center; }
 .kitty{ position:relative; width:92px; height:72px; }
+
 .face{
   position:absolute;
   inset:6px 0 0 0;
@@ -225,6 +163,7 @@ body{
   border-radius:999px;
   box-shadow:0 10px 18px rgba(0,0,0,0.12);
 }
+
 .ear{
   position:absolute;
   width:0; height:0;
@@ -235,6 +174,7 @@ body{
 }
 .ear-left{ left:10px; transform:rotate(-10deg); }
 .ear-right{ right:10px; transform:rotate(10deg); }
+
 .eye{
   position:absolute;
   width:10px; height:10px;
@@ -244,6 +184,7 @@ body{
 }
 .eye-left{ left:30px; }
 .eye-right{ right:30px; }
+
 .nose{
   position:absolute;
   width:10px; height:10px;
@@ -253,6 +194,7 @@ body{
   left:50%;
   transform:translateX(-50%) rotate(45deg);
 }
+
 .heart{
   position:absolute;
   width:26px; height:26px;
@@ -272,6 +214,55 @@ body{
 .heart:before{ left:-13px; top:0; }
 .heart:after{ left:0; top:-13px; }
 
+/* =========================
+   YAY SCREEN FINAL (CLEAN)
+   ========================= */
+
+#screenYay .card{
+  padding: 26px 20px;
+}
+
+.yayTop{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  margin-bottom:18px;
+  text-align:center;
+}
+
+.kittyIcon{
+  font-size:56px;
+  filter: drop-shadow(0 10px 22px rgba(0,0,0,0.15));
+}
+
+.yayBody{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding: 8px 0 10px;
+}
+
+/* Video container */
+.yayVideoWrap{
+  width: min(720px, 92vw);
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  overflow:hidden;
+  background: rgba(255,255,255,0.55);
+  border: 2px solid rgba(255, 180, 205, 0.7);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.12);
+}
+
+/* Video itself */
+.surpriseVideo{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit: contain;
+  background: rgba(255,255,255,0.35);
+}
+
 /* Envelope */
 .envelope{
   margin:16px auto 6px;
@@ -283,6 +274,7 @@ body{
   position:relative;
   display:block;
 }
+
 .envBody{
   position:absolute;
   inset:0;
@@ -291,6 +283,7 @@ body{
   border: 5px solid rgba(255,255,255,0.55);
   box-shadow: 0 22px 70px rgba(0,0,0,0.22);
 }
+
 .envTop{
   position:absolute;
   left:0;
@@ -303,6 +296,7 @@ body{
   border: 5px solid rgba(255,255,255,0.55);
   border-bottom:none;
 }
+
 .waxSeal{
   position:absolute;
   left:50%;
@@ -326,6 +320,7 @@ body{
   width:min(980px, 100%);
   margin:0 auto;
 }
+
 .bookHeader{
   display:flex;
   align-items:center;
@@ -333,10 +328,12 @@ body{
   gap:12px;
   margin-bottom:12px;
 }
+
 .bookTitle{
   font-weight:900;
   font-size:20px;
 }
+
 .bookControls{
   display:flex;
   gap:10px;
@@ -345,7 +342,7 @@ body{
 .postcard{
   background: linear-gradient(180deg, #b10b0b, #8a0808);
   border-radius:18px;
-  padding:16px;
+  padding:18px;
   box-shadow: 0 18px 60px rgba(0,0,0,0.22);
 }
 
@@ -356,6 +353,7 @@ body{
   position:relative;
   padding:6px 0 12px;
 }
+
 .date{
   background: rgba(255,255,255,0.12);
   color:#fff;
@@ -366,6 +364,7 @@ body{
   letter-spacing:0.08em;
   font-size:12px;
 }
+
 .sealBadge{
   position:absolute;
   top:-6px;
@@ -385,6 +384,7 @@ body{
   border: 2px solid rgba(124,10,10,0.25);
   overflow:hidden;
   min-height: 480px;
+
   /* cut-corner look */
   clip-path: polygon(
     18px 0%,
@@ -396,6 +396,8 @@ body{
     0% calc(100% - 18px),
     0% 18px
   );
+
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.45);
 }
 
 /* lined paper */
@@ -420,9 +422,9 @@ body{
   margin:0 0 10px;
   text-align:center;
   font-size:clamp(24px, 3.4vw, 42px);
-  color:#7c0a0a;
+  color:#6f0b0b;
   font-weight:900;
-  font-family: "Comic Sans MS", "Bradley Hand", cursive, system-ui;
+  font-family: "Patrick Hand", "Segoe Print", "Bradley Hand", cursive;
 }
 
 .cardContent{
@@ -430,13 +432,14 @@ body{
   max-width:720px;
   margin:0 auto;
   padding:6px 10px 0;
-  font-size:20px;
+  text-align:center;
+  font-size:22px;
   line-height:1.8;
   color:#5c1414;
-  font-family: "Comic Sans MS", "Bradley Hand", cursive, system-ui;
+  font-family: "Patrick Hand", "Segoe Print", "Bradley Hand", cursive;
 }
 
-.cardContent p{margin:0 0 10px;}
+.cardContent p{ margin: 0 0 14px; }
 
 .doodles{
   position:absolute;
@@ -450,6 +453,7 @@ body{
   pointer-events:none;
   opacity:0.95;
 }
+
 .doodles.hidden{ display:none; }
 
 .doodle{
@@ -457,9 +461,11 @@ body{
   opacity:0.9;
   filter: drop-shadow(0 10px 14px rgba(0,0,0,0.18));
 }
+
 @media (max-width:720px){
   .doodle{width:120px;}
 }
+
 .doodle.left{align-self:flex-end;}
 .doodle.right{align-self:flex-end;}
 
@@ -468,6 +474,7 @@ body{
   justify-content:center;
   padding:12px 8px 6px;
 }
+
 .footerLine{
   color:#fff;
   font-weight:900;
@@ -480,74 +487,6 @@ body{
   display:flex;
   justify-content:center;
   margin-top:14px;
-}
-
-.couponGrid{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:12px;
-  margin-top:10px;
-}
-@media (max-width:560px){
-  .couponGrid{grid-template-columns:1fr;}
-}
-.coupon{
-  background: rgba(177,11,11,0.10);
-  border: 2px dashed rgba(177,11,11,0.35);
-  border-radius:14px;
-  padding:14px;
-  font-weight:900;
-  text-align:center;
-  color:#7c0a0a;
-  text-transform: lowercase;
-}
-
-.songBox{
-  margin-top:10px;
-  display:grid;
-  gap:10px;
-}
-.songRow{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
-  align-items:center;
-}
-.qr{
-  width:120px;
-  border-radius:14px;
-  border:1px solid rgba(0,0,0,0.08);
-  box-shadow:0 10px 22px rgba(0,0,0,0.12);
-}
-
-.sealedArt{
-  display:grid;
-  place-items:center;
-  margin:16px 0 6px;
-}
-.sealedEnv{
-  width:min(420px, 100%);
-  aspect-ratio:16/10;
-  background:#fff;
-  border-radius:16px;
-  border:4px solid #d7d7d7;
-  box-shadow:0 18px 60px rgba(0,0,0,0.18);
-  position:relative;
-}
-.waxSeal.big{
-  width:110px;
-  height:110px;
-  border-radius:999px;
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform: translate(-50%, -50%);
-  background: rgba(255,255,255,0.55);
-  border: 3px solid rgba(255,255,255,0.8);
-  display:grid;
-  place-items:center;
-  font-size:40px;
 }
 
 .postcardBody.hasDoodles .cardContent{
@@ -637,12 +576,35 @@ body{
   padding:10px 18px;
 }
 
+/* Song box */
+.songBox{
+  margin-top:10px;
+  display:grid;
+  gap:10px;
+}
+
+.songRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  align-items:center;
+}
+
+.qr{
+  width:120px;
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,0.08);
+  box-shadow:0 10px 22px rgba(0,0,0,0.12);
+}
+
 /* Record player */
 .recordWrap{
   display:grid;
   place-items:center;
   margin-top:14px;
 }
+
 .record{
   width:220px;
   height:220px;
@@ -653,6 +615,7 @@ body{
   position:relative;
   overflow:hidden;
 }
+
 .record:before{
   content:"";
   position:absolute;
@@ -664,6 +627,7 @@ body{
   mix-blend-mode: screen;
   opacity:0.35;
 }
+
 .label{
   position:absolute;
   left:50%;
@@ -683,6 +647,7 @@ body{
   text-align:center;
   padding:10px;
 }
+
 .label .tap{
   display:block;
   margin-top:8px;
@@ -702,265 +667,46 @@ body{
   to{ transform: rotate(360deg); }
 }
 
-/* YAY screen cleanup */
-.yayScreen{
+/* Panda video */
+.pandaVideo{
+  width:min(420px, 82vw);
+  height:auto;
+  border-radius:18px;
+  box-shadow:0 16px 36px rgba(0,0,0,0.16);
+  border:1px solid rgba(255,47,119,0.16);
+  margin: 18px auto 0;
+  display:block;
+  background: rgba(255,255,255,0.55);
+}
+
+/* Sealed screen */
+.sealedArt{
   display:grid;
-  grid-template-columns:1fr;
-  gap:24px;
-  align-items:center;
-  justify-items:center;
-  text-align:center;
+  place-items:center;
+  margin:16px 0 6px;
 }
 
-.yayScreen h1{
-  font-size:36px;
-  line-height:1.25;
-}
-
-.yayScreen .surpriseBox{
-  max-width:520px;
-  margin:auto;
-}
-
-/* Better handwritten feel for message text */
-.cardContent p{
-  font-family: "Comic Sans MS", "Bradley Hand", "Segoe Print", cursive;
-  font-size:20px;
-}
-
-/* Envelope styles */
-.envelope{
-  width:360px;
-  height:220px;
-  background:#b10f1b;
+.sealedEnv{
+  width:min(420px, 100%);
+  aspect-ratio:16/10;
+  background:#fff;
   border-radius:16px;
+  border:4px solid #d7d7d7;
+  box-shadow:0 18px 60px rgba(0,0,0,0.18);
   position:relative;
-  box-shadow:0 18px 40px rgba(0,0,0,0.25);
-  cursor:pointer;
 }
 
-.envelope:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  clip-path: polygon(0 0, 100% 0, 50% 60%);
-  background:#8f0c15;
-}
-
-.envelopeSeal{
+.waxSeal.big{
+  width:110px;
+  height:110px;
+  border-radius:999px;
   position:absolute;
   left:50%;
   top:50%;
-  transform:translate(-50%,-50%);
-  width:64px;
-  height:64px;
-  border-radius:999px;
-  background:#fff;
-  color:#b10f1b;
-  font-weight:900;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.55);
+  border: 3px solid rgba(255,255,255,0.8);
   display:grid;
   place-items:center;
+  font-size:40px;
 }
-
-/* Typography upgrades */
-.title, .title2{
-  font-family: "Lilita One", ui-sans-serif, system-ui;
-  text-transform: none;
-}
-.handTitle, .cardContent{
-  font-family: "Patrick Hand", "Segoe Print", "Bradley Hand", cursive;
-}
-.cardContent{
-  text-align:center;
-  font-size:22px;
-}
-.cardContent p{ margin: 0 0 14px; }
-
-/* Celebration screen tweaks */
-#screenYay .celebrateRow{ margin-top: 10px; }
-#screenYay .crackerBox{ background: rgba(255,47,119,0.06); border:1px solid rgba(255,47,119,0.14); }
-
-.envelope{
-  width:min(560px, 100%);
-  aspect-ratio: 16/9;
-}
-
-.postcard{
-  padding:18px;
-}
-.postcardBody{
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.45);
-}
-.handTitle{
-  color:#6f0b0b;
-}
-
-.pandaVideo{
-  width:240px;
-  border-radius:20px;
-  box-shadow:0 18px 40px rgba(0,0,0,0.18);
-  margin-top:14px;
-}
-
-.surprisedVid{
-  width:min(340px, 78vw);
-  height:auto;
-  border-radius:18px;
-  box-shadow:0 18px 40px rgba(0,0,0,0.14);
-  border:1px solid rgba(255,47,119,0.18);
-  background: rgba(255,255,255,0.6);
-}
-
-/* --- YAY screen (centered like reference) --- */
-.yayWrap{
-  width: min(760px, 92vw);
-  margin: 0 auto;
-  padding: 24px 18px 10px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap: 18px;
-}
-
-.yayTop{
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-  gap: 10px;
-  align-items:center;
-}
-
-.yayMascot{
-  position: relative;
-  width: 94px;
-  height: 70px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.18));
-}
-
-.yayCat{ font-size: 58px; line-height:1; }
-.yayHeart{
-  position:absolute;
-  right: 6px;
-  top: 2px;
-  font-size: 24px;
-}
-
-.yayTitle{
-  margin: 0;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  font-size: clamp(28px, 4.2vw, 46px);
-}
-
-.yayYay{
-  font-weight: 900;
-  font-size: clamp(26px, 3.6vw, 40px);
-  display:flex;
-  align-items:center;
-  gap: 10px;
-}
-
-.yayMedia{
-  width: min(520px, 86vw);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding: 10px;
-}
-
-.surprisedVidBig{
-  width: 100%;
-  max-width: 520px;
-  border-radius: 18px;
-  border: 2px solid rgba(0,0,0,0.08);
-  box-shadow: 0 18px 50px rgba(0,0,0,0.18);
-  background: rgba(255,255,255,0.8);
-  display:block;
-}
-
-.yayFallback{
-  width: 100%;
-  max-width: 520px;
-  min-height: 260px;
-  border-radius: 18px;
-  border: 2px solid rgba(0,0,0,0.08);
-  box-shadow: 0 18px 50px rgba(0,0,0,0.18);
-  background: rgba(255,255,255,0.7);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  font-size: 54px;
-  gap: 14px;
-}
-
-.yayActions{
-  display:flex;
-  gap: 14px;
-  align-items:center;
-  justify-content:center;
-  margin-top: 8px;
-}
-
-
-/* --- Yay screen (surprise video) --- */
-.yayTop{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:14px;
-  margin-bottom:18px;
-}
-.kittyIcon{
-  font-size:56px;
-  filter: drop-shadow(0 10px 22px rgba(0,0,0,0.15));
-}
-.yayBody{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding: 8px 0 18px;
-}
-.yayVideoWrap{
-  width:min(520px, 88vw);
-  aspect-ratio: 1 / 1;
-  border-radius: 18px;
-  overflow:hidden;
-  background: rgba(255,255,255,0.55);
-  border: 2px solid rgba(255, 180, 205, 0.7);
-  box-shadow: 0 14px 34px rgba(0,0,0,0.12);
-}
-.surpriseVideo{
-  width:100%;
-  height:100%;
-  /* Show the whole video (no cropping) */
-  object-fit:contain;
-  display:block;
-}
-
-/* Confetti overlay */
-.confettiLayer{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  overflow:hidden;
-}
-.confettiPiece{
-  position:absolute;
-  width:10px;
-  height:16px;
-  border-radius:2px;
-  opacity:0.95;
-  transform: translateY(-10vh) rotate(0deg);
-  animation: confettiFall var(--dur, 2200ms) linear forwards;
-}
-@keyframes confettiFall{
-  to{
-    transform: translateY(120vh) rotate(var(--rot, 720deg));
-    opacity: 1;
-  }
-}
-
-.kissesRow{ text-align:center; font-size:28px; margin-top:10px; }

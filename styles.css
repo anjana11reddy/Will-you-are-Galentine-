@@ -157,6 +157,25 @@ body{
   padding:12px;
   text-align:center;
 }
+.surprise-box {
+  width: 100%;
+  height: 260px;
+  background: #fde8ef;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+#surpriseVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  display: block;
+}
 .surpriseLabel{font-weight:800; margin-bottom:8px;}
 .surpriseGif{
   width:100%;

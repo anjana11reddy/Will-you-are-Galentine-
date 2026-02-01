@@ -970,3 +970,9 @@ body{
 }
 
 .kissesRow{ text-align:center; font-size:28px; margin-top:10px; }
+
+const video = document.getElementById("surpriseVideo");
+if (video) {
+  video.currentTime = 0;
+  video.play().catch(() => {});
+}

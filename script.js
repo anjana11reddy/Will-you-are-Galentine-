@@ -50,7 +50,7 @@ const btnCloseAndSeal = document.getElementById("btnCloseAndSeal");
 const btnRestart = document.getElementById("btnRestart");
 
 const askTitle = document.getElementById("askTitle");
-askTitle.textContent = `${CONFIG.name} will you be my Valentine?`;
+askTitle.textContent = `${CONFIG.name} will you be my Galentine?`;
 
 // Confetti
 const confettiCanvas = document.getElementById("confettiCanvas");

@@ -39,7 +39,7 @@
       </section>
 
       <!-- Screen 2: Celebration -->
-      <section class="screen" id="screenYay">
+<section class="screen" id="screenYay">
   <div class="card glass" id="arenaYay">
     <div class="yayTop">
       <div class="kittyIcon" aria-hidden="true">😺</div>
@@ -48,21 +48,20 @@
       </h2>
     </div>
 
-    <div class="yayBody">
-      <div class="yayVideoWrap">
-        <video id="surpriseVideo" class="surpriseVideo" autoplay loop muted playsinline preload="auto">
-          <source src="assets/surprised.mp4" type="video/mp4">
-        </video>
-      </div>
+    <!-- Only ONE content block: the video -->
+    <div class="video-wrapper">
+      <video id="surpriseVideo" class="surpriseVideo" autoplay loop muted playsinline preload="auto">
+        <source src="assets/surprised.mp4" type="video/mp4" />
+      </video>
     </div>
 
-
-    <div class="actions">
-      <button class="btn primary" id="btnNext">Next</button>
-      <button class="btn" id="btnExit">Exit</button>
+    <!-- Buttons row -->
+    <div class="actions" id="yayActions">
+      <button class="btn primary" id="btnNext" type="button">Next</button>
+      <button class="btn" id="btnExit" type="button">Exit</button>
     </div>
 
-    <div class="hint">Try clicking Exit 😈</div>
+    <p class="hint" id="yayHint">Try clicking Exit 😈</p>
   </div>
 </section>
 
